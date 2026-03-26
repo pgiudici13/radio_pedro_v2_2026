@@ -1,4 +1,7 @@
 enum RadioMessage {
+    Hi_geget = 60699,
+    Hi_zotap = 57456,
+    Hi_gagez = 47490,
     Ciao_1 = 17031,
     BLOCK = 28732,
     Online_SYNC_Reciving = 44323,
@@ -9,18 +12,18 @@ radio.onReceivedMessage(RadioMessage.BLOCK, function () {
     basic.showIcon(IconNames.Sad)
     control.reset()
 })
-radio.onReceivedMessage(RadioMessage.Ciao_1, function () {
+radio.onReceivedMessage(RadioMessage.Hi_geget, function () {
     status = 3
     basic.clearScreen()
-    music.play(music.stringPlayable("E B C5 A B G A - ", 280), music.PlaybackMode.InBackground)
+    music.play(music.stringPlayable("F A C5 A F A C5 - ", 500), music.PlaybackMode.InBackground)
     basic.showLeds(`
-        # # # # #
-        # # . # #
-        # . # . #
-        # . . . #
-        # # # # #
+        . # . . #
+        # . # # .
+        . # # # .
+        . # # . #
+        # . . # .
         `)
-    basic.pause(200)
+    basic.pause(500)
     basic.clearScreen()
     led.setBrightness(50)
     basic.showLeds(`
@@ -61,14 +64,14 @@ radio.onReceivedMessage(RadioMessage.Ciao_1, function () {
 input.onButtonPressed(Button.A, function () {
     if (status == 0) {
         status = 2
-        radio.sendMessage(RadioMessage.Ciao_1)
+        radio.sendMessage(RadioMessage.Hi_geget)
         led.setBrightness(50)
         basic.showLeds(`
             . . . . .
             . . . . .
             . . . . .
             . . . . .
-            . # . . #
+            . # . . .
             `)
         led.setBrightness(110)
         basic.showLeds(`
@@ -100,7 +103,7 @@ input.onButtonPressed(Button.A, function () {
     basic.clearScreen()
 })
 radio.onReceivedMessage(RadioMessage.Online_SYNC, function () {
-    basic.pause(10)
+    basic.pause(1000)
     radio.sendMessage(RadioMessage.Online_SYNC_Reciving)
     SYNC_give += 1
 })
@@ -247,6 +250,116 @@ input.onButtonPressed(Button.B, function () {
     }
     status = 0
 })
+radio.onReceivedMessage(RadioMessage.Hi_zotap, function () {
+    status = 3
+    basic.clearScreen()
+    music.play(music.stringPlayable("E B C5 A B G A - ", 280), music.PlaybackMode.InBackground)
+    basic.showLeds(`
+        # # . . .
+        . . . # .
+        # . # . .
+        . . . . .
+        . . # . #
+        `)
+    basic.pause(500)
+    basic.clearScreen()
+    led.setBrightness(50)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . # . . .
+        . . . . .
+        . . . . #
+        `)
+    led.setBrightness(110)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        # # # . .
+        . . . . #
+        . . . . #
+        `)
+    led.setBrightness(190)
+    basic.showLeds(`
+        . . . . .
+        # . # . .
+        # # # . #
+        # . # . #
+        . . . . #
+        `)
+    led.setBrightness(255)
+    basic.showLeds(`
+        # . # . #
+        # . # . .
+        # # # . #
+        # . # . #
+        # . # . #
+        `)
+    basic.pause(2000)
+    basic.clearScreen()
+    status = 0
+})
+input.onGesture(Gesture.ScreenUp, function () {
+    if (status == 0) {
+        if (input.isGesture(Gesture.ScreenUp)) {
+            if (input.buttonIsPressed(Button.B)) {
+                basic.showIcon(IconNames.Ghost)
+                radio.sendMessage(RadioMessage.BLOCK)
+                basic.pause(100)
+                basic.clearScreen()
+            }
+        }
+    }
+})
+radio.onReceivedMessage(RadioMessage.Hi_gagez, function () {
+    status = 3
+    basic.clearScreen()
+    music.play(music.stringPlayable("E B C5 A B G A - ", 280), music.PlaybackMode.InBackground)
+    basic.showLeds(`
+        # # # . .
+        . . . . #
+        # . . . .
+        . . . . #
+        . . # . .
+        `)
+    basic.pause(500)
+    basic.clearScreen()
+    led.setBrightness(50)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . # . . .
+        . . . . .
+        . . . . #
+        `)
+    led.setBrightness(110)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        # # # . .
+        . . . . #
+        . . . . #
+        `)
+    led.setBrightness(190)
+    basic.showLeds(`
+        . . . . .
+        # . # . .
+        # # # . #
+        # . # . #
+        . . . . #
+        `)
+    led.setBrightness(255)
+    basic.showLeds(`
+        # . # . #
+        # . # . .
+        # # # . #
+        # . # . #
+        # . # . #
+        `)
+    basic.pause(2000)
+    basic.clearScreen()
+    status = 0
+})
 let SYNC_do_ok = 0
 let Online_reciving_times = 0
 let SYNC_give = 0
@@ -258,6 +371,7 @@ let Y_view = 0
 let X_view = 0
 let status = 0
 status = 1
+serial.writeLine(control.deviceName())
 music.setVolume(130)
 music.stopAllSounds()
 X_view = 0
@@ -272,6 +386,7 @@ online = 0
 radio.setGroup(137)
 // Potenza massima (0-7)
 radio.setTransmitPower(7)
+led.setBrightness(30)
 turtle.setPosition(0, 0)
 turtle.turnRight()
 turtle.setSpeed(30)
