@@ -1,0 +1,28 @@
+{
+    "name": "Radio_PedroV2_2026",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "radio-broadcast": "*",
+        "microturtle": "github:microsoft/pxt-microturtle#v0.0.10",
+        "audio-recording": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "8.0.18",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
